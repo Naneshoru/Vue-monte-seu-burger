@@ -17,6 +17,12 @@
         created: 'Created',
         mounted: 'Mounted'
       }
+    },                                                       // beforeCreated() {}
+    created() { // onInit // Receber os dados da requisição, por exemplo
+      // this.created = `Created atualizado`
+    },                                                        // beforeMounted() {}
+    mounted() { // afterviewInit
+      // this.mounted = `Mounted atualizado`
     }
   }
 </script>
