@@ -1,15 +1,17 @@
 <template>
   <div>
     <p> Welcome </p>
-
-    {{ data }}
-    {{ created }}
-    {{ mounted }}
+    <Info :data="data" :created="created" :mounted='mounted'/>
   </div>
 </template>
 
 <script>
+  import Info from './Info.vue'
+
   export default {
+    components: { 
+      Info 
+    },
     name: 'ShapeComponent',
     data() {
       return {
