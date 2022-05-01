@@ -1,14 +1,14 @@
 <template>
- <ShapeComponent></ShapeComponent>
+ <BasicForm />
 </template>
 
 <script>
-  import ShapeComponent from './components/Shape.vue'
+  import BasicForm from './components/forms/BasicForm.vue'
 
   export default {
     name: 'My-app',
     components: {
-      ShapeComponent
+      BasicForm
     } 
   }
 </script>
