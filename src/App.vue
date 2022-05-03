@@ -1,14 +1,16 @@
 <template>
- <BasicForm />
+ <CustomNavbar />
+ <!-- router-view -->
+ <router-view />
 </template>
 
 <script>
-  import BasicForm from './components/forms/BasicForm.vue'
+  import CustomNavbar from './components/CustomNavbar.vue'
 
   export default {
     name: 'My-app',
     components: {
-      BasicForm
+      CustomNavbar
     } 
   }
 </script>
