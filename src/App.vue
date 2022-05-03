@@ -1,7 +1,9 @@
 <template>
- <CustomNavbar :logo="logoSrc" :alt="appName" />
- <router-view />
- <CustomFooter />
+  <div id="ap"> 
+    <CustomNavbar :logo="logoSrc" :alt="appName" />
+    <router-view />
+    <CustomFooter :appName="appName"/>
+  </div>
 </template>
 
 <script>
@@ -24,6 +26,10 @@
 </script>
 
 <style>
+  #ap {
+    height: 100vh
+  }
+
   * {
     font-family: 'Proxima Nova';
     padding: 0;
@@ -31,5 +37,16 @@
     box-sizing: border-box;
   }
 
+  .main-container {
+    margin: 50px;
+    min-height: 250px;
+  }
+
+  h1 {
+    text-align: center;
+    font-size: 42px;
+    margin-bottom: 30px;
+    color: #222
+  }
 </style>
  
