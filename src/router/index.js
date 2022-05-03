@@ -2,9 +2,9 @@ import { createRouter, createWebHistory } from 'vue-router'
 
 const routes = [
   {
-    path: "/about",
-    name: "AboutPage",
-    component: () => import('../views/AboutPage.vue'),
+    path: "/pedidos",
+    name: "PedidosPage",
+    component: () => import('../views/PedidosPage.vue'),
   }, 
   {
     path: "/",
