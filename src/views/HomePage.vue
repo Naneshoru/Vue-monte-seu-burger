@@ -1,9 +1,19 @@
 <template>
-  <h1 class="main-container">Hello Home Page!</h1> 
+  <MainBanner />
+  <div class="main-container">
+    <h1>Monte o seu burguer: </h1>
+    <p>formulário</p>
+  </div> 
+
 </template>
 
 <script>
+import MainBanner from '../components/MainBanner.vue'
+
 export default {
-  name: 'HomePage'
+  name: 'HomePage',
+  components: {
+    MainBanner
+  }
 }
 </script>
