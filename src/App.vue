@@ -1,5 +1,5 @@
 <template>
-  <div id="ap"> 
+  <div id="wrapper"> 
     <CustomNavbar :logo="logoSrc" :alt="appName" />
     <router-view />
     <CustomFooter :appName="appName"/>
@@ -26,8 +26,12 @@
 </script>
 
 <style>
-  #ap {
-    height: 100vh
+  :root {
+    --header-size: 80px;
+  }
+  
+  html, body {
+    height:100%;
   }
 
   * {
@@ -35,6 +39,10 @@
     padding: 0;
     margin: 0;
     box-sizing: border-box;
+  }
+
+  #wrapper {
+    padding-top: var(--header-size);
   }
 
   .main-container {
