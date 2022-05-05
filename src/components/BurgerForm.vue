@@ -39,7 +39,7 @@
 
 <script>
 export default {
-  name: 'BurguerForm',
+  name: 'BurgerForm',
   data() {
     return {
       paes: [],
@@ -49,7 +49,6 @@ export default {
       pao: '',
       carne: '',
       opcionais: [],
-      status: "Solicitado",
       msg: ''
     }
   },
@@ -68,6 +67,28 @@ export default {
       this.carne = this.carnes[0].tipo; // 1º Carne selecionada default 
 
       return data;
+    },
+    async createBurger() {
+      const data = {
+        nome: this.nome,
+        pao: this.pao,
+        carne: this.carne,
+        opcionais: this.opcionais,
+        status: 'Solicitado',
+        msg: this.msg
+      }
+
+      const dataJson = JSON.stringify(data);
+      console.log(data)
+
+      const req = await fetch('http://localhost:3000/burgers', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json'},
+        body: dataJson
+      });  
+      
+      const res = await req.json();
+      console.log(res)
     }
   },
   mounted() {

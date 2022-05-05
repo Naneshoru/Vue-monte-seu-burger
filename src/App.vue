@@ -19,7 +19,7 @@
     data() {
       return {
         logoSrc: './img/logo.png',
-        appName: 'Make your Burguer'
+        appName: 'Make your Burger'
       }
     }
   }
