@@ -1,9 +1,17 @@
 <template>
-  <h1 class="main-container">Hello Pedidos Page!</h1> 
+  <div class="main-container">
+    <h1>Gerenciar pedidos:</h1>
+    <OrdersDashboard />
+  </div> 
 </template>
 
 <script>
+import OrdersDashboard from '../components/OrdersDashboard.vue'
+
 export default {
-  name: 'PedidosPage'
+  name: 'PedidosPage',
+  components: {
+    OrdersDashboard
+  }
 }
 </script>
