@@ -76,6 +76,22 @@ export default {
       setTimeout(() => this.msg = '', 3000);
 
       this.getOrders();
+    },
+    async updateBurger(event, id) {
+      const option = event.target.value;
+
+      const dataJson = JSON.stringify({ status: option })
+
+      const req = await fetch(`http://localhost:3000/burgers/${id}`, {
+        method: 'PATCH',
+        headers: {'Content-Type': 'application/json'}, 
+        body: dataJson
+      })
+
+      const res = await req.json();
+      
+      this.msg = `Pedido Nº ${res.id} atualizado para '${res.status}'!`
+      setTimeout(() => this.msg = '', 3000);
     }
   },
   mounted() {
