@@ -1,5 +1,6 @@
 <template>
   <div class="burger-table">
+    <InlineMessage :msg="msg" />
     <div>
       <div class="burger-table-heading">
         <div class="order-id">#:</div>
@@ -22,12 +23,12 @@
           </ul>
         </div>
         <div>
-          <select name="status" class="status">
-            <option v-for="sts in status" :key="sts.id" :value="sts.id" :selected="burger.status === sts.tipo">
+          <select name="status" class="status" @change="updateBurger($event, burger.id)">
+            <option v-for="sts in status" :key="sts.id" :value="sts.tipo" :selected="burger.status === sts.tipo">
               {{ sts.tipo }}
             </option>
           </select>
-          <button class="delete-btn">Cancelar</button>
+          <button class="delete-btn" @click="deleteBurger(burger.id)">Cancelar</button>
         </div>
       </div>
       
@@ -36,14 +37,20 @@
 </template>
 
 <script>
+import InlineMessage from '../interface/InlineMessage.vue'
+
 export default {
   name: 'OrdersDashboard',
   data() {
     return {
       burgers: [],
       burguerId: '',
-      status: []
+      status: [],
+      msg: ''
     }
+  },
+  components: {
+    InlineMessage
   },
   methods: {
     async getOrders() {
@@ -57,6 +64,18 @@ export default {
       const req = await fetch('http://localhost:3000/status')
       const data = await req.json();
       this.status = data;
+    },
+    async deleteBurger(id) {
+      const req = await fetch(`http://localhost:3000/burgers/${id}`, {
+        method: 'DELETE'
+      })
+
+      const res = await req.json();
+      
+      this.msg = `Pedido Nº ${res.id} removido com sucesso!`
+      setTimeout(() => this.msg = '', 3000);
+
+      this.getOrders();
     }
   },
   mounted() {
