@@ -1,43 +1,48 @@
 <template>
-  <form id="burger-form" method="POST" @submit.prevent="createBurgerRequest">
-    <div class="input-container">
-      <label for="nome">Nome do cliente:</label>
-      <input type="text" id="nome" name="nome" v-model="nome" placeholder="Ex: André Marques da Silva">
-    </div>
-
-    <div class="input-container">
-      <label for="pao">Escolha o pão:</label>
-      <select name="pao" id="pao" v-model="pao">
-        <option v-for="pao in paes" :key="pao.id" :value="pao.tipo">
-          {{ pao.tipo }}
-        </option>
-      </select>
-    </div>
-
-    <div class="input-container">
-      <label for="carne">Escolha a carne do seu Burger:</label>
-      <select name="carne" id="carne" v-model="carne">
-        <option v-for="carne in carnes" :key="carne.id" :value="carne.tipo">
-          {{ carne.tipo }}
-        </option>
-      </select>
-    </div>
-
-    <div id="opcionais-container" class="input-container">
-      <label id="opcionais-title" for="opcionais">Selecione os opcionais:</label>
-      <div class="checkbox-container" v-for="opcional in opcionaisBackend" :key="opcional.id">
-        <input type="checkbox" name="opcionais" v-model="opcionais" :value="opcional.tipo">
-        <span>{{ opcional.tipo }}</span>
+  <div>
+    <InlineMessage :msg="msg" />
+    <form id="burger-form" method="POST" @submit.prevent="createBurgerRequest">
+      <div class="input-container">
+        <label for="nome">Nome do cliente:</label>
+        <input type="text" id="nome" name="nome" v-model="nome" placeholder="Ex: André Marques da Silva">
       </div>
-    </div>
 
-    <div class="input-container">
-      <button class="submit-btn" type="submit">Criar meu Burger!</button>
-    </div>
-  </form>
+      <div class="input-container">
+        <label for="pao">Escolha o pão:</label>
+        <select name="pao" id="pao" v-model="pao">
+          <option v-for="pao in paes" :key="pao.id" :value="pao.tipo">
+            {{ pao.tipo }}
+          </option>
+        </select>
+      </div>
+
+      <div class="input-container">
+        <label for="carne">Escolha a carne do seu Burger:</label>
+        <select name="carne" id="carne" v-model="carne">
+          <option v-for="carne in carnes" :key="carne.id" :value="carne.tipo">
+            {{ carne.tipo }}
+          </option>
+        </select>
+      </div>
+
+      <div id="opcionais-container" class="input-container">
+        <label id="opcionais-title" for="opcionais">Selecione os opcionais:</label>
+        <div class="checkbox-container" v-for="opcional in opcionaisBackend" :key="opcional.id">
+          <input type="checkbox" name="opcionais" v-model="opcionais" :value="opcional.tipo">
+          <span>{{ opcional.tipo }}</span>
+        </div>
+      </div>
+
+      <div class="input-container">
+        <button class="submit-btn" type="submit">Criar meu Burger!</button>
+      </div>
+    </form>
+  </div>
 </template>
 
 <script>
+import InlineMessage from '../interface/InlineMessage.vue'
+
 export default {
   name: 'BurgerForm',
   data() {
@@ -100,11 +105,17 @@ export default {
       
       const res = await req.json();
 
+      this.msg = `Pedido Nº ${res.id} realizado com sucesso!`
+      setTimeout(() => this.msg = '', 3000);
+
       this.resetData();
     }
   },
   mounted() {
     this.getIngredients()
+  },
+  components: {
+    InlineMessage
   }
 }
 </script>
