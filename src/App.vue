@@ -28,10 +28,11 @@
 <style>
   :root {
     --header-size: 80px;
+    --light-accent: #FCBA03;
   }
-  
+
   html, body {
-    height:100%;
+    height: 100%;
   }
 
   * {
@@ -48,6 +49,10 @@
   .main-container {
     margin: 50px;
     min-height: 250px;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
   }
 
   h1 {
