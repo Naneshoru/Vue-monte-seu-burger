@@ -54,22 +54,19 @@ export default {
   },
   methods: {
     resetData() {
-      this.paes= [],
-      this.carnes= [],
-      this.opcionaisBackend= [],
-      this.nome= '',
-      this.pao= '',
-      this.carne= '',
-      this.opcionais= [],
-      this.msg= ''
+      this.nome = '',
+      this.pao = this.paes[0].tipo,
+      this.carne = this.carnes[0].tipo;
+      this.opcionais = []
     },
     setIngredients(paes, carnes, opcionais) {
       this.paes = paes;
       this.carnes = carnes;
       this.opcionaisBackend = opcionais;
     },
-    setDefaultFieldValue(field, value) {
-      this[field] = value;
+    setDefaultFieldsValues() {
+      this.pao = this.paes[0].tipo;
+      this.carne = this.carnes[0].tipo;
     },
     async getIngredients() {
       const req = await fetch('http://localhost:3000/ingredientes');
@@ -77,19 +74,17 @@ export default {
 
       this.setIngredients(data.paes, data.carnes, data.opcionais);
 
-      this.setDefaultFieldValue(this.pao, this.paes[0].tipo)
-      this.setDefaultFieldValue(this.carne, this.carnes[0].tipo);
+      this.setDefaultFieldsValues();
 
       return data;
     },
-    createData(nome, pao, carne, opcionais, status, msg) {
+    createData(nome, pao, carne, opcionais, status) {
       return {
         nome: nome,
         pao: pao,
         carne: carne,
         opcionais: opcionais,
-        status: status,
-        msg: msg
+        status: status
       }
     },
     async createBurgerRequest() {
