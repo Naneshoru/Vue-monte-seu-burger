@@ -1,5 +1,5 @@
 <template>
-  <form id="burger-form" method="POST" @submit.prevent="createBurger">
+  <form id="burger-form" method="POST" @submit.prevent="createBurgerRequest">
     <div class="input-container">
       <label for="nome">Nome do cliente:</label>
       <input type="text" id="nome" name="nome" v-model="nome" placeholder="Ex: André Marques da Silva">
@@ -53,33 +53,49 @@ export default {
     }
   },
   methods: {
+    resetData() {
+      this.paes= [],
+      this.carnes= [],
+      this.opcionaisBackend= [],
+      this.nome= '',
+      this.pao= '',
+      this.carne= '',
+      this.opcionais= [],
+      this.msg= ''
+    },
+    setIngredients(paes, carnes, opcionais) {
+      this.paes = paes;
+      this.carnes = carnes;
+      this.opcionaisBackend = opcionais;
+    },
+    setDefaultFieldValue(field, value) {
+      this[field] = value;
+    },
     async getIngredients() {
       const req = await fetch('http://localhost:3000/ingredientes');
       const data = await req.json();
 
-      console.log(data)
+      this.setIngredients(data.paes, data.carnes, data.opcionais);
 
-      this.paes = data.paes
-      this.carnes = data.carnes
-      this.opcionaisBackend = data.opcionais
-
-      this.pao = this.paes[0].tipo; // 1º Pao selecionado default
-      this.carne = this.carnes[0].tipo; // 1º Carne selecionada default 
+      this.setDefaultFieldValue(this.pao, this.paes[0].tipo)
+      this.setDefaultFieldValue(this.carne, this.carnes[0].tipo);
 
       return data;
     },
-    async createBurger() {
-      const data = {
-        nome: this.nome,
-        pao: this.pao,
-        carne: this.carne,
-        opcionais: this.opcionais,
-        status: 'Solicitado',
-        msg: this.msg
+    createData(nome, pao, carne, opcionais, status, msg) {
+      return {
+        nome: nome,
+        pao: pao,
+        carne: carne,
+        opcionais: opcionais,
+        status: status,
+        msg: msg
       }
+    },
+    async createBurgerRequest() {
+      const data = this.createData(this.nome, this.pao, this.carne, this.opcionais, 'Solicitado', this.msg);
 
       const dataJson = JSON.stringify(data);
-      console.log(data)
 
       const req = await fetch('http://localhost:3000/burgers', {
         method: 'POST',
@@ -88,7 +104,8 @@ export default {
       });  
       
       const res = await req.json();
-      console.log(res)
+
+      this.resetData();
     }
   },
   mounted() {
